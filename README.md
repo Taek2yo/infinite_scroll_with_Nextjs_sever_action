@@ -1,4 +1,4 @@
-# Practice Infinite Scroll
+# Practice Infinite Scroll with Next.js 14 server action
 
 ## Start
 
