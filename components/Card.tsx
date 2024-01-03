@@ -2,11 +2,9 @@ import Image from "next/image";
 
 export interface MovieProp {
   adult: boolean;
-  backdrop_path: string;
+  poster_path: string;
   id: number;
-  original_title: string;
   title: string;
-  overview: string;
   release_date: string;
   vote_average: number;
 }
@@ -16,9 +14,36 @@ interface OwnProp {
   index: number;
 }
 
-
-
 export default function Card({ movie }: OwnProp) {
-  let movieRate = Math.floor(movie.vote_average / 10 * 100)
-  return <div>{movie.title}</div>;
+  let movieRate = Math.floor((movie.vote_average / 10) * 100);
+  const baseUrl = "https://image.tmdb.org/t/p/original/";
+  
+  return (
+    <div className="max-w-sm rounded relative w-full pt-4">
+      <div className="relative w-full h-[37vh]">
+        <Image
+          src={baseUrl + movie.poster_path}
+          alt={movie.title}
+          fill
+          className="rounded-xl"
+          sizes="(max-width: 600px) 100vw, 600px"
+        />
+      </div>
+      <div className="py-4 flex flex-col gap-3">
+        <div className="flex justify-between items-center gap-1">
+          <h2 className="font-bold text-white text-xl line-clamp-1 w-full">
+            {movie.title}
+          </h2>
+        </div>
+        <div className="flex gap-3 items-center">
+          <p className="text-base font-bold">개봉일 {movie.release_date}</p>
+        </div>
+        <div className="flex gap-4 items-center">
+          <div className="flex flex-row gap-2 items-center">
+            <p className="text-base font-bold text-[#FFAD49]">선호도 {movieRate}%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
