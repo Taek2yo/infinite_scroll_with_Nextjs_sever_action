@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Desc from "@/components/Desc";
+import Hero from "@/components/Hero";
 
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Infinite Scroll Example",
-  description: "My favorite anime",
+  description: "My favorite Movie",
 };
 
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main className="max-w-7xl mx-auto bg-[#1d2029]">
-          <Desc />
+          <Hero />
           {children}
         </main>
       </body>

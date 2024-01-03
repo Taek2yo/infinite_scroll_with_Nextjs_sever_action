@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { MotionDiv } from "./MotionDiv";
 
 export interface MovieProp {
   adult: boolean;
@@ -14,12 +15,27 @@ interface OwnProp {
   index: number;
 }
 
-export default function Card({ movie }: OwnProp) {
+const variants = {
+  hidden : { opacity: 0},
+  visible : { opacity : 1},
+}
+
+export default function Card({ movie, index }: OwnProp) {
   let movieRate = Math.floor((movie.vote_average / 10) * 100);
   const baseUrl = "https://image.tmdb.org/t/p/original/";
   
   return (
-    <div className="max-w-sm rounded relative w-full pt-4">
+    <MotionDiv 
+      variants={variants}
+      initial="hidden"
+      animate="visible"
+      transition={{
+        delay : index * 0.25,
+        ease : 'easeInOut',
+        duration : 0.5,
+      }}
+      viewport={{ amount : 0}}
+      className="max-w-sm rounded relative w-full pt-4">
       <div className="relative w-full h-[37vh]">
         <Image
           src={baseUrl + movie.poster_path}
@@ -44,6 +60,6 @@ export default function Card({ movie }: OwnProp) {
           </div>
         </div>
       </div>
-    </div>
+    </MotionDiv>
   );
 }

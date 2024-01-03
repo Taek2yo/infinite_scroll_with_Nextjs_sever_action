@@ -1,4 +1,5 @@
 "use server";
+import Card ,{ MovieProp } from "@/components/Card";
 
 const options = {
   method: "GET",
@@ -8,7 +9,6 @@ const options = {
   },
 };
 
-
 export const fecthMovie = async (page: number) => {
   const response = await fetch(
     `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko-KR&page=${page}&sort_by=popularity.desc`,
@@ -16,6 +16,8 @@ export const fecthMovie = async (page: number) => {
   );
 
   const data = await response.json();
-  
-  return data;
+ 
+  return data.results.map((item: MovieProp, index : number) => {
+    return <Card key={`${item.id}-${index}`} movie={item} index={index} />;
+  })
 };
